@@ -24,8 +24,43 @@
             }
             result = numbers[pos] + sum(numbers, pos + 1);
 
-        }
+        };
 
+        var paragra = function (parrafo) {
+            var parrafo = window.prompt("Escribi algo");
+            var res = parrafo.split(" ");
+            return res.length;
+        };
+
+
+        var showDate = function () {
+            var date = new Date();
+
+            console.log('Today is: ' + getDay(date.getDay()));
+            console.log('Current time is: ' + getHour(date.getHours()) + ':' + date.getMinutes() + ':' + date.getSeconds());
+
+        };
+
+        var getDay = function (day) {
+            if (day == 1) {
+                return 'Monday'
+            }
+            if (day == 6) {
+                return 'Saturday'
+            }
+        };
+
+        var getHour = function (hour) {
+            if (hour < 13) {
+                return hour + ' AM'
+            }
+
+        };
+
+        var validateDate = function (date) {
+            var regExp = new RegExp();
+            return regExp.test(date)
+        }
 
     </script>
 </head>
