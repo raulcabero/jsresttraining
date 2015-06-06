@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        console.log("this is my inline JAVASCRIPT code");
+
+        var calculateAll = function () {
+            console.log(arguments);
+            console.log('SUM:', sum(arguments, 0));
+            //  console.log('AVG', sum(....?));
+            // console.log('SUM', sum(....?));
+            //console.log('SUM', sum(....?));
+        };
+
+        var sum = function (numbers, pos) {
+            if (!pos) {
+                pos = 0;
+            }
+            if (pos == numbers.length - 1) {
+                return numbers[pos];
+            }
+            result = numbers[pos] + sum(numbers, pos + 1);
+
+        }
+
+
+    </script>
+</head>
+<body>
+APP ...
+</body>
+</html>
