@@ -62,6 +62,123 @@
             return regExp.test(date)
         }
 
+        var getFirstCapicua = function (limitRange, endRange){
+            for (i = limitRange; i <= endRange; i++) {
+                if (isCapicua(i)){
+                    return i;
+                }
+            }
+
+        };
+
+        var isCapicua = function(num){
+            newNum = num.toString();
+            newNum = newNum.split("");
+            newNum=newNum.reverse();
+            newNum=newNum.join('');
+            number = Number(newNum);
+            return number == num;
+        };
+
+        var getFirstNumber = function(amount){
+            numfounds = 0;
+            var result ='';
+            for (i = 1; true; i++) {
+                if (isOdd(i)){
+                    result = result + ' ' + i.toString()
+                    numfounds++;
+                }
+                if(numfounds < amount)
+                {
+                    continue;
+                }
+                return result;
+            }
+        } ;
+
+
+        var isOdd = function(num){
+            if (num % 2 == 0)
+            {
+                return true;
+            }
+        };
+
+        var getFactorial = function(num){
+            result = 1;
+            for (i=num; i>0; i--)
+            {
+                result = result*i;
+            }
+
+            return result;
+        };
+
+        /**
+         *
+         * @param num
+         * @param para
+         * @returns {string}
+         */
+        var getTruncate = function(num, para){
+            arrayPara = para.split('');
+            result = '';
+            for (i=0; i<= num; i++){
+                result = result + arrayPara[i];
+            }
+
+            return result;
+        };
+
+        var doOperation = function(a,b,cb){
+            console.log(a,b,cb());
+        };
+
+        var callback = function(num){
+            console.log('I am callback' + num);
+        };
+
+        doOperation = function(a,b,cb){
+            console.log(a,b,cb());
+        };
+
+        var nom= 'Raulsino';
+        (function(nom){
+            console.log('hello ' + nom);
+        })(nom);
+
+
+        var Person = function(name,age){
+            this.name = name;
+            this.age = age;
+
+            this.eat = function(){
+              console.log(this.name + ' is eating');
+            };
+        };
+
+        var pepe = new Person('pepe',12);
+        var luis = new Person('luis',12);
+
+
+
+        var start = 20,
+            end = 5000;
+
+        console.log('First capicua in ', getFirstCapicua(20,5000));
+
+        var amount = 5;
+        console.log('First odd numers ', getFirstNumber(amount));
+
+        var factorial = 5;
+        console.log('First odd numers ', getFactorial(factorial));
+
+
+        var factorial = 5;
+        console.log('truncate ', getTruncate(7,'hello everybody'));
+
+
+
     </script>
 </head>
 <body>
