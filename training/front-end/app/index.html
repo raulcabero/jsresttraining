@@ -7,177 +7,123 @@
     <script type="text/javascript">
         console.log("this is my inline JAVASCRIPT code");
 
-        var calculateAll = function () {
-            console.log(arguments);
-            console.log('SUM:', sum(arguments, 0));
-            //  console.log('AVG', sum(....?));
-            // console.log('SUM', sum(....?));
-            //console.log('SUM', sum(....?));
-        };
-
-        var sum = function (numbers, pos) {
-            if (!pos) {
-                pos = 0;
-            }
-            if (pos == numbers.length - 1) {
-                return numbers[pos];
-            }
-            result = numbers[pos] + sum(numbers, pos + 1);
-
-        };
-
-        var paragra = function (parrafo) {
-            var parrafo = window.prompt("Escribi algo");
-            var res = parrafo.split(" ");
-            return res.length;
-        };
-
-
-        var showDate = function () {
-            var date = new Date();
-
-            console.log('Today is: ' + getDay(date.getDay()));
-            console.log('Current time is: ' + getHour(date.getHours()) + ':' + date.getMinutes() + ':' + date.getSeconds());
-
-        };
-
-        var getDay = function (day) {
-            if (day == 1) {
-                return 'Monday'
-            }
-            if (day == 6) {
-                return 'Saturday'
-            }
-        };
-
-        var getHour = function (hour) {
-            if (hour < 13) {
-                return hour + ' AM'
-            }
-
-        };
-
-        var validateDate = function (date) {
-            var regExp = new RegExp();
-            return regExp.test(date)
-        }
-
-        var getFirstCapicua = function (limitRange, endRange){
-            for (i = limitRange; i <= endRange; i++) {
-                if (isCapicua(i)){
-                    return i;
-                }
-            }
-
-        };
-
-        var isCapicua = function(num){
-            newNum = num.toString();
-            newNum = newNum.split("");
-            newNum=newNum.reverse();
-            newNum=newNum.join('');
-            number = Number(newNum);
-            return number == num;
-        };
-
-        var getFirstNumber = function(amount){
-            numfounds = 0;
-            var result ='';
-            for (i = 1; true; i++) {
-                if (isOdd(i)){
-                    result = result + ' ' + i.toString()
-                    numfounds++;
-                }
-                if(numfounds < amount)
-                {
-                    continue;
-                }
-                return result;
-            }
-        } ;
-
-
-        var isOdd = function(num){
-            if (num % 2 == 0)
-            {
-                return true;
-            }
-        };
-
-        var getFactorial = function(num){
-            result = 1;
-            for (i=num; i>0; i--)
-            {
-                result = result*i;
-            }
-
-            return result;
-        };
-
+        var totalSuma= 0;
+        var pos = 0;
+        var min = 9999999999999999;
+        var max = 0;
+        
         /**
-         *
-         * @param num
-         * @param para
-         * @returns {string}
-         */
-        var getTruncate = function(num, para){
-            arrayPara = para.split('');
-            result = '';
-            for (i=0; i<= num; i++){
-                result = result + arrayPara[i];
+        * Prints all the funtions for the 1 task.
+        * Sum all the numbers
+        * Calculate the average for all numbers
+        * Calculate the min of the all numbers
+        * Calculate the max of the all numbers
+        */
+        var calculateAll = function () {
+            reset();
+            var sum = sumNumbers(arguments, pos);
+            reset();
+            var average = calculateAverage(arguments, pos);
+            reset();
+            var min = findMin(arguments, pos);
+            reset();
+            var max = findMax(arguments, pos);
+            console.log(arguments);
+            console.log('SUM:', sum);
+            console.log('AVG', average);
+            console.log('MIN', min);
+            console.log('MAX', max);
+        };
+        
+        /**
+        * Sum all numbers send to the functions
+        * @param {array} numbers
+        *   All the numbers to sum
+        * @param {Number} pos
+        *   The actual position in the arrays of numbers
+        * @return {Number} sum
+        *   The result of the sum
+        */
+        var sumNumbers = function (numbers,pos){
+            
+            if (pos < numbers.length) {
+                var numberToAdd = numbers[pos];
+                pos = pos + 1;
+                totalSuma = totalSuma + numberToAdd + sumNumbers(numbers,pos);
             }
-
-            return result;
+            
+            return totalSuma;
         };
-
-        var doOperation = function(a,b,cb){
-            console.log(a,b,cb());
+        
+        /**
+        * Calculate the average for all numbers
+        * @param {array} numbers
+        *   All the numbers to sum
+        * @param {Number} pos
+        *   The actual position in the arrays of numbers
+        * @return {Number} average
+        *   The average for the numbers
+        */
+        var calculateAverage = function (numbers,pos){
+            var suma = sumNumbers(numbers,pos);
+            average = suma / (numbers.length);  
+            return average;
         };
-
-        var callback = function(num){
-            console.log('I am callback' + num);
+        
+        /**
+        * Find the min number into an array of numbers
+        * @param {array} numbers
+        *   All the numbers to sum
+        * @param {Number} pos
+        *   The actual position in the arrays of numbers
+        * @return {Number} min
+        *   The min of the numbers
+        */
+        var findMin = function (numbers,pos){
+            if (pos < numbers.length) {
+                if (min > numbers[pos]) {
+                min = numbers[pos];
+                }
+                pos = pos + 1;
+                findMin(numbers, pos);
+            }
+            
+            return min;
+            
         };
-
-        doOperation = function(a,b,cb){
-            console.log(a,b,cb());
+        
+        /**
+        * Find the max number into an array of numbers
+        * @param {array} numbers
+        *   All the numbers to sum
+        * @param {Number} pos
+        *   The actual position in the arrays of numbers
+        * @return {Number} max
+        *   The max of the numbers
+        */
+        var findMax = function (numbers,pos){
+            if (pos < numbers.length) {
+                if (max < numbers[pos]) {
+                max = numbers[pos];
+                }
+                pos = pos + 1;
+                findMax(numbers, pos);
+            }
+            
+            return max;
+            
         };
-
-        var nom= 'Raulsino';
-        (function(nom){
-            console.log('hello ' + nom);
-        })(nom);
-
-
-        var Person = function(name,age){
-            this.name = name;
-            this.age = age;
-
-            this.eat = function(){
-              console.log(this.name + ' is eating');
-            };
+        
+        /**
+        * Reset all the variables to default value
+        */
+        var reset = function (){
+            totalSuma= 0;
+            pos = 0;
+            min = 9999999999999999;
+            max = 0;
         };
-
-        var pepe = new Person('pepe',12);
-        var luis = new Person('luis',12);
-
-
-
-        var start = 20,
-            end = 5000;
-
-        console.log('First capicua in ', getFirstCapicua(20,5000));
-
-        var amount = 5;
-        console.log('First odd numers ', getFirstNumber(amount));
-
-        var factorial = 5;
-        console.log('First odd numers ', getFactorial(factorial));
-
-
-        var factorial = 5;
-        console.log('truncate ', getTruncate(7,'hello everybody'));
-
-
+        
 
     </script>
 </head>
