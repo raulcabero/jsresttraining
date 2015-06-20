@@ -124,6 +124,98 @@
             max = 0;
         };
         
+        
+
+        function Calculator() {
+           this.total= 0;
+           this.pos = 0
+           this.min = 9999999999999999;
+           this.max = 0;
+           this.started = 0;
+           
+           this.sum = function(){
+              this.pos = 0
+              this.started = 1;
+              var sum = this.sumNumbers(arguments);
+              console.log(sum);
+           };
+           
+           this.rest = function(){
+              this.pos = 0
+              this.started = 1;
+              var rest = this.restNumbers(arguments);
+              console.log(rest);
+           };
+           
+           this.times = function(){
+              if (this.started == 0){
+                this.total= 1;  
+              }
+              this.started = 1;
+              this.pos = 0
+              var times = this.timesNumbers(arguments);
+              console.log(times);
+           };
+           
+           this.divide = function(){
+              this.pos = 0
+              if (this.started == 0){
+                this.total= arguments[0];
+                this.pos = 1;  
+              }
+              this.started = 1;
+              var divide = this.divideNumbers(arguments);
+              console.log(divide);
+           };
+           
+           this.sumNumbers = function(numbers){
+              if (this.pos < numbers.length) {
+                var numberToAdd = numbers[this.pos];
+                this.pos = this.pos + 1;
+                this.total = this.total + numberToAdd;
+                this.sumNumbers(numbers)
+              }
+            
+              return this.total;
+           };
+           
+           this.restNumbers = function(numbers){
+              if (this.pos < numbers.length) {
+                var numberToRest = numbers[this.pos];
+                this.pos = this.pos + 1;
+                this.total = this.total - numberToRest;
+                this.restNumbers(numbers)
+              }
+            
+              return this.total;
+           };
+           
+           this.timesNumbers = function(numbers){
+              if (this.pos < numbers.length) {
+                var numberToTimes = numbers[this.pos];
+                this.pos = this.pos + 1;
+                this.total = this.total * numberToTimes;
+                this.timesNumbers(numbers)
+              }
+            
+              return this.total;
+           };
+           
+           this.divideNumbers = function(numbers){
+              if (this.pos < numbers.length) {
+                var numberToDivide = numbers[this.pos];
+                this.pos = this.pos + 1;
+                this.total = this.total / numberToDivide;
+                this.divideNumbers(numbers)
+              }
+            
+              return this.total;
+           };
+            
+            
+        };
+        
+        var calc = new Calculator();
 
     </script>
 </head>
