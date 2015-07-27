@@ -1,0 +1,131 @@
+
+CREATE USER
+
+https://cloud.agilefant.com:443/rcabero/api/v1/users
+
+POST
+
+Authorization: Basic cmF1bC5jYWJlcm9AamFsYXNvZnQuY29tOk1hY3Jvc3My
+Content-Type: application/json
+
+[
+    {
+        "type": "user",
+        "fullName": "tes5",
+        "loginName": "g3@softlayer.com",
+        "name": "g3@softlayer.com",
+        "email": "g3@softlayer.com",
+        "initials": "tes5",
+        "admin": true,
+        "teams": [
+            {
+                "type": "team",
+                "id": 26237
+            }
+        ],
+        "defaultBacklog": {
+            "type": "iteration",
+            "id": 145265
+        }
+    }
+]
+
+****************************************
+****************************************
+
+LIST ALL USERS
+
+GET
+
+https://cloud.agilefant.com:443/rcabero/api/v1/users/all
+
+
+Authorization: Basic cmF1bC5jYWJlcm9AamFsYXNvZnQuY29tOk1hY3Jvc3My
+Content-Type: application/json
+
+****************************************
+****************************************
+
+GET TEAM USER
+
+https://cloud.agilefant.com:443/rcabero/api/v1/users/55816/teams
+
+Get
+
+****************************************
+****************************************
+
+GET CURRENT USER LOGGED
+
+https://cloud.agilefant.com:443/rcabero/api/v1/users/loggedIn
+
+GET
+
+******************************************
+******************************************
+
+GET USER and details
+
+https://cloud.agilefant.com:443/rcabero/api/v1/users/55805?templates=Summary%2CCredentials%2CTeams%2CDetails
+
+GET
+
+
+///////////////////////////////////////////////////
+//////////////////////////////////////////////////
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
+TEAMS
+
+
+GET ALL TEAMS
+
+https://cloud.agilefant.com:443/rcabero/api/v1/teams/all?templates=Name%2CSummary
+
+GET
+
+
+*******************************************************
+********************************************************
+
+GET TEAM
+https://cloud.agilefant.com:443/rcabero/api/v1/teams/26237?templates=Name%2CSummary
+
+GET
+
+***********************************************************
+***********************************************************
+
+
+CREATE TEAM
+https://cloud.agilefant.com:443/rcabero/api/v1/teams
+
+POST
+
+[
+    {
+        "name": "myteam2",
+        "users": [],
+        "productAccess": [
+            {
+                "type": "product",
+                "id": 145263
+            }
+        ],
+        "standaloneIterationAccess": [],
+        "type": "team"
+    }
+]
+
+EDIT TEAM
+
+https://cloud.agilefant.com:443/rcabero/api/v1/teams/26242
+
+POST
+
+[
+    {
+        "name": "myteam3",
+      "type": "team"
+    }
+]

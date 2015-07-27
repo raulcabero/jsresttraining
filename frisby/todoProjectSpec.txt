@@ -1,0 +1,83 @@
+// todoProjectSpec.js
+var frisby = require('frisby');
+
+frisby.globalSetup({
+    request: {
+	    headers: {
+		     'Authorization' : 'Basic c29tYnJlcm9kZXBhamFAZ21haWwuY29tOk1hY3Jvc3My'
+		},
+	    proxy: 'http://172.20.240.5:8080'
+		 
+	}
+	
+});
+
+frisby.create('Verify google main page returns 200 status')
+	.get('https://todo.ly/api/projects.json')
+	.expectStatus(200)
+	.expectHeader('Content-Type', 'application/json; charset=utf-8')
+	.expectJSON([{
+      Content: 'Work',
+      Icon: 10  
+    },
+	{
+	  Content: 'Home',
+	  Icon: 1
+	}])
+	.expectJSONTypes([{
+      Content: String,
+      Icon: Number  
+    },
+	{
+	  Content: String,
+	  Icon: Number
+	}])
+	//.expectBodyContains('Error')
+.toss();
+
+var parentId = 3457586
+var idNewProject = 0;
+var newProject = {
+  Content: 'new todo',
+  ParentId: parentId
+};
+
+frisby.create('negative create project')
+	.post('https://todo.ly/api/projects.json', newProject,{json: true})
+	.expectStatus(200)
+	.afterJSON(function(json) {
+	  idNewProject = json.Id;
+      frisby.create('verify project Created')
+       .get('https://todo.ly/api/projects/'+ json.Id +'.json')
+	   .expectStatus(200)
+	   .expectJSON(
+	     {
+		   Id: json.Id,
+           ParentId: parentId 		   
+		 }
+	   )
+      .toss()
+    })
+	.afterJSON(function(json) {
+      frisby.create('verify parent Created')
+       .get('https://todo.ly/api/projects/'+ parentId +'.json')
+	   .expectStatus(200)
+	   .expectJSON(
+	     {
+		   Id: parentId
+		 }
+	   )
+	   .afterJSON(function(json) {
+	      var res = false;
+		  for (var i=0; i< json.Children.length; i++){
+		      if (idNewProject == json.Children[i].Id){
+			       res = true; 
+                   break;  				   
+			  }
+		  }
+		  expect(res).toBe(true);
+	   })
+      .toss()
+	})  
+.toss();
+
