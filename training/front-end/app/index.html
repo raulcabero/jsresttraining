@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+console.log("this is my inline JAVASCRIPT code");
+
+var totalSuma = 0;
+var pos = 0;
+var min = 9999999999999999;
+var max = 0;
+
+/* *
+ * Prints all the funtions for the 1 task.
+ * Sum all the numbers
+ * Calculate the average for all numbers
+ * Calculate the min of the all numbers
+ * Calculate the max of the all numbers
+ */
+var calculateAll = function ()
+{
+   reset();
+   var sum = sumNumbers(arguments, pos);
+   reset();
+   var average = calculateAverage(arguments, pos);
+   reset();
+   var min = findMin(arguments, pos);
+   reset();
+   var max = findMax(arguments, pos);
+   console.log(arguments);
+   console.log('SUM:', sum);
+   console.log('AVG', average);
+   console.log('MIN', min);
+   console.log('MAX', max);
+}
+;
+
+/* *
+ * Sum all numbers send to the functions
+ * @param {array} numbers
+ *   All the numbers to sum
+ * @param {Number} pos
+ *   The actual position in the arrays of numbers
+ * @return {Number} sum
+ *   The result of the sum
+ */
+var sumNumbers = function (numbers, pos)
+{
+
+   if (pos < numbers.length)
+   {
+      var numberToAdd = numbers[pos];
+      pos = pos + 1;
+      totalSuma = totalSuma + numberToAdd + sumNumbers(numbers, pos);
+   }
+
+   return totalSuma;
+}
+;
+
+/* *
+ * Calculate the average for all numbers
+ * @param {array} numbers
+ *   All the numbers to sum
+ * @param {Number} pos
+ *   The actual position in the arrays of numbers
+ * @return {Number} average
+ *   The average for the numbers
+ */
+var calculateAverage = function (numbers, pos)
+{
+   var suma = sumNumbers(numbers, pos);
+   average = suma / (numbers.length);
+   return average;
+}
+;
+
+/* *
+ * Find the min number into an array of numbers
+ * @param {array} numbers
+ *   All the numbers to sum
+ * @param {Number} pos
+ *   The actual position in the arrays of numbers
+ * @return {Number} min
+ *   The min of the numbers
+ */
+var findMin = function (numbers, pos)
+{
+   if (pos < numbers.length)
+   {
+      if (min > numbers[pos])
+      {
+         min = numbers[pos];
+      }
+      pos = pos + 1;
+      findMin(numbers, pos);
+   }
+
+   return min;
+
+}
+;
+
+/* *
+ * Find the max number into an array of numbers
+ * @param {array} numbers
+ *   All the numbers to sum
+ * @param {Number} pos
+ *   The actual position in the arrays of numbers
+ * @return {Number} max
+ *   The max of the numbers
+ */
+var findMax = function (numbers, pos)
+{
+   if (pos < numbers.length)
+   {
+      if (max < numbers[pos])
+      {
+         max = numbers[pos];
+      }
+      pos = pos + 1;
+      findMax(numbers, pos);
+   }
+
+   return max;
+
+}
+;
+
+/* *
+ * Reset all the variables to default value
+ */
+var reset = function ()
+{
+   totalSuma = 0;
+   pos = 0;
+   min = 9999999999999999;
+   max = 0;
+}
+;
+
+
+/* *
+ * Class calculator which calculates sum, rest,
+ * division, times, average, min and max
+ */
+function Calculator()
+{
+   this.total = 0;
+   this.pos = 0
+   this.min = 9999999999999999;
+   this.max = 0;
+   this.started = 0;
+
+   /* *
+   * Sum all numbers in the function
+   */
+   this.sum = function()
+   {
+      this.pos = 0
+      this.started = 1;
+      var sum = this.sumNumbers(arguments);
+      console.log('the sum of ', arguments, ' ', sum);
+   }
+   ;
+
+   /* *
+   * Rest all numbers in the function
+   */
+   this.rest = function()
+   {
+      this.pos = 0
+      this.started = 1;
+      var rest = this.restNumbers(arguments);
+      console.log('the rest of ', arguments, ' ', rest);
+   }
+   ;
+
+   /* *
+   * Times all numbers in the function
+   */
+   this.times = function()
+   {
+      if (this.started == 0)
+      {
+         this.total = 1;
+      }
+      this.started = 1;
+      this.pos = 0
+      var times = this.timesNumbers(arguments);
+      console.log('the times of ', arguments, ' ', times);
+   }
+   ;
+
+   /* *
+   * Divide all numbers in the function
+   */
+   this.divide = function()
+   {
+      this.pos = 0
+      if (this.started == 0)
+      {
+         this.total = arguments[0];
+         this.pos = 1;
+      }
+      this.started = 1;
+      var divide = this.divideNumbers(arguments);
+      console.log('the divide of ', arguments, ' ', divide);
+   }
+   ;
+
+   /* *
+   * Sum all numbers send to the function
+   * @param {array} numbers
+   * @return {Number} total sum
+   */
+   this.sumNumbers = function(numbers)
+   {
+      if (this.pos < numbers.length)
+      {
+         var numberToAdd = numbers[this.pos];
+         this.pos = this.pos + 1;
+         this.total = this.total + numberToAdd;
+         this.sumNumbers(numbers)
+      }
+
+      return this.total;
+   }
+   ;
+
+   /* *
+   * Rest all numbers send to the function
+   * @param {array} numbers
+   * @return {Number} total rest
+   */
+   this.restNumbers = function(numbers)
+   {
+      if (this.pos < numbers.length)
+      {
+         var numberToRest = numbers[this.pos];
+         this.pos = this.pos + 1;
+         this.total = this.total - numberToRest;
+         this.restNumbers(numbers)
+      }
+
+      return this.total;
+   }
+   ;
+
+   /* *
+   * Times all numbers send to the function
+   * @param {array} numbers
+   * @return {Number} total times
+   */
+   this.timesNumbers = function(numbers)
+   {
+      if (this.pos < numbers.length)
+      {
+         var numberToTimes = numbers[this.pos];
+         this.pos = this.pos + 1;
+         this.total = this.total * numberToTimes;
+         this.timesNumbers(numbers)
+      }
+
+      return this.total;
+   }
+   ;
+
+   /* *
+   * Divide all numbers send to the function
+   * @param {array} numbers
+   * @return {Number} total division
+   */
+   this.divideNumbers = function(numbers)
+   {
+      if (this.pos < numbers.length)
+      {
+         var numberToDivide = numbers[this.pos];
+         this.pos = this.pos + 1;
+         this.total = this.total / numberToDivide;
+         this.divideNumbers(numbers)
+      }
+
+      return this.total;
+   }
+   ;
+
+   /* *
+   * Reset all the values of the calculator
+   */
+   this.reset = function()
+   {
+      this.total = 0;
+      this.pos = 0
+      this.min = 9999999999999999;
+      this.max = 0;
+      this.started = 0;
+   }
+   ;
+
+   /* *
+   * Prints all the funtions for the 1 task.
+   * Sum all the numbers
+   * Calculate the average for all numbers
+   * Calculate the min of the all numbers
+   * Calculate the max of the all numbers
+   */
+   this.calculateAll = function ()
+   {
+      this.reset();
+      var sum = this.sumNumbers(arguments);
+      this.reset();
+      var average = this.calculateAverage(arguments);
+      this.reset();
+      var min = this.findMin(arguments, this.pos);
+      this.reset();
+      var max = this.findMax(arguments, this.pos);
+      console.log(arguments);
+      console.log('SUM:', sum);
+      console.log('AVG', average);
+      console.log('MIN', min);
+      console.log('MAX', max);
+      this.reset();
+   }
+   ;
+
+
+   /* *
+   * Calculate the average for all numbers
+   * @param {array} numbers
+   *   All the numbers to sum
+   * @param {Number} pos
+   *   The actual position in the arrays of numbers
+   * @return {Number} average
+   *   The average for the numbers
+   */
+   this.calculateAverage = function (numbers)
+   {
+      var suma = this.sumNumbers(numbers);
+      average = suma / (numbers.length);
+      return average;
+   }
+   ;
+
+   /* *
+   * Find the min number into an array of numbers
+   * @param {array} numbers
+   *   All the numbers to sum
+   * @param {Number} pos
+   *   The actual position in the arrays of numbers
+   * @return {Number} min
+   *   The min of the numbers
+   */
+   this.findMin = function (numbers, pos)
+   {
+      if (pos < numbers.length)
+      {
+         if (min > numbers[pos])
+         {
+            min = numbers[pos];
+         }
+         pos = pos + 1;
+         findMin(numbers, pos);
+      }
+
+      return min;
+
+   }
+   ;
+
+   /* *
+   * Find the max number into an array of numbers
+   * @param {array} numbers
+   *   All the numbers to sum
+   * @param {Number} pos
+   *   The actual position in the arrays of numbers
+   * @return {Number} max
+   *   The max of the numbers
+   */
+   this.findMax = function (numbers, pos)
+   {
+      if (pos < numbers.length)
+      {
+         if (max < numbers[pos])
+         {
+            max = numbers[pos];
+         }
+         pos = pos + 1;
+         findMax(numbers, pos);
+      }
+
+      return max;
+
+   }
+   ;
+
+
+}
+;
+
+var calc = new Calculator();
+calc.calculateAll(2,3,8);
+calc.sum(1,3,2);
+calc.sum(2);
+calc.rest(1);
+calc.times(5);
+calc.reset();
+console.log('reseting memory');
+calc.divide(10,2);
+
+    </script>
+</head>
+<body>
+APP ...
+</body>
+</html>
